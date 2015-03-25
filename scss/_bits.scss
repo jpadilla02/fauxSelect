@@ -1,0 +1,97 @@
+// **************
+// toggle display
+// **************
+// can include styling here or on separate page
+// that uses the tabber section
+.toggle-content-item{
+	display: none;
+
+	&.active{
+		display: block;
+	}
+}
+
+// **************
+// column layout
+// **************
+// support lacks for ie 9 and before
+// but will just display as 1 column
+// so only use if that is acceptable
+.column-layout{
+
+	&.col2{
+		column-count: 2;
+		-moz-column-count: 2;
+		-webkit-column-count: 2;
+		column-gap: 4em;
+		-moz-column-gap: 4em;
+		-webkit-column-gap: 4em;
+	}
+
+	&.col3{
+		column-count: 3;
+		-moz-column-count: 3;
+		-webkit-column-count: 3;
+		column-gap: 4em;
+		-moz-column-gap: 4em;
+		-webkit-column-gap: 4em;
+	}
+	
+}
+
+// ************************
+// img/text section styling
+// ************************
+.section-holder{
+	.section{
+		@extend .clr;
+
+		.img{
+			height: 100%;
+			// width: ; // set the width of the img side in %
+		}
+
+		.text{
+			// width: ; // set the width of the text side in %
+			// padding: ; // add top/bottom to give text section consistent height
+
+			.content{
+				// max-width: ; // prevents content from spanning too long
+			}
+		}
+
+		&:nth-child(odd){ // change to even if you want text floated right first
+			
+			.img{
+				float: right;
+				// text-align: left; // may need if there is a non-background image
+			}
+
+			.text{
+				float: left;
+
+				.content{
+					float: right;
+					// padding-right: ; // adds space between text and .img block
+				}
+			}
+		}
+
+		&:nth-child(even){ // change to odd if you want text floated right first
+
+			.img{
+				float: left;
+				// text-align: right; // may need if there is a non-background image
+			}
+
+			.text{
+				float: right;
+
+				.content{
+					float: left;
+					// padding-left: ; // adds space between text and .img block
+				}
+			}
+		}
+	}
+}

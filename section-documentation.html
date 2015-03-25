@@ -1,0 +1,67 @@
+<!-- 
+****************************************************
+***** Documents project php setup for codekit ******
+****************************************************
+In order to set up a php project in code kit,
+you must go to settings and change several options.
+Browser Refreshing: External Server Req: ON
+Languages: Sass: Set The Output Folder,
+check option "to this folder" and type "."
+relative to the project root folder and name the 
+Output file style.css 
+-->
+
+
+
+<!-- 
+****************************************************
+*** HTML setup requirements for tabbing sections ***
+****************************************************
+Required elements for any tab selectors
+Does not necessarily have to be self contained
+like this. The only requirement is tab-toggler
+and toggle-content have to be nested somewhere in 
+only one tabber, and "tab" and "toggle-content-item"
+cannot have siblings other than themselves.
+Technically do not need active on first elements, but
+it loads nicer if you do 
+-->
+
+<div class="tabber">
+	<div class="tab-toggler">
+		<div class="tab active"></div>
+		<div class="tab"></div>
+		<div class="tab"></div>
+		<div class="tab"></div>
+	</div>
+	<div class="toggle-content">
+		<div class="toggle-content-item active"></div>
+		<div class="toggle-content-item"></div>
+		<div class="toggle-content-item"></div>
+		<div class="toggle-content-item"></div>
+	</div>
+</div>
+
+
+<!-- 
+*******************************************************
+*** HTML setup requirements for image/content split ***
+*******************************************************
+A lot of the designs recently include a layout that places
+text and image next to each other, that the image has to 
+span the full height of the text.
+-->
+
+<div class="section-holder">
+	<div class="section">
+		<div class="img" style="background-image: url('images/');">
+			<!-- <img src="" alt=""> -->
+		</div>
+		<div class="text">
+			<div class="content">
+				
+			</div>
+		</div>
+	</div>
+	<!-- repeat sections as necessary, css will swap img/text sides -->
+</div>
