@@ -1,6 +1,5 @@
 //////////// ********* COLORS *************** \\\\\\
 
-$white: #fff;
 
 //////////// ********* FONTS *************** \\\\\\
 
@@ -12,6 +11,13 @@ $white: #fff;
 	-moz-transition: all 0.35s ease-in-out;
 	-o-transition: all 0.35s ease-in-out;
 	transition: all 0.35s ease-in-out;
+}
+
+@mixin customEase($property){
+  -webkit-transition: $property 0.35s ease-in-out;
+  -moz-transition: $property 0.35s ease-in-out;
+  -o-transition: $property 0.35s ease-in-out;
+  transition: $property 0.35s ease-in-out;
 }
 
 //////////// ********* ROWMACHINE *************** \\\\\\
@@ -26,9 +32,9 @@ $white: #fff;
       margin-right: $margin;
     }
   
-    &:nth-child(#{$numperrow}n) {
-     margin-right: 0; 
+    &:nth-child(#{$numperrow}n) { 
       margin-bottom: 0;
+      margin-right: 0;
     }
 }
 
@@ -37,7 +43,7 @@ $white: #fff;
 // *********************
 // still needs some vendor prefixes
 // does not work in ie8 and below
-@mixin img{
+@mixin coverimg{
   -webkit-background-size: cover !important;
   -moz-background-size: cover !important;
   background-size: cover !important;
