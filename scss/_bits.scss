@@ -31,11 +31,12 @@
 //=====================================================//
 
 
-@mixin font($fontFamily, $color, $fontSize, $lineHeight: undefined, $margin: null){
+@mixin font($fontFamily, $color, $fontSize, $textTransform: none, $lineHeight: undefined, $margin: null){
 
 	@extend %#{$fontFamily};
 	color:$color;
 	font-size:em($fontSize);
+	text-transform: $textTransform;
 
 	@if $lineHeight == undefined{
 		line-height: 1em;
