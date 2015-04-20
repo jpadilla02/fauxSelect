@@ -1,8 +1,71 @@
+// **********************
+// font-size: em function
+// **********************
+
+@function em($px, $base: 16) {
+	@return ($px / $base) * 1em;
+}
+
+// **************
+// button styling
+// **************
+
+@mixin button($color, $bgColor, $bd:none, $bdrz:0){
+	display: inline-block;
+	color: $color;
+	background-color: $bgColor;
+	border: $bd;
+	border-radius: $bdrz;
+}
+
+// *****************
+// selection styling
+// *****************
+
+@mixin selection($bgColor, $color){
+	::selection { 
+		background-color: $bgColor;
+		color: $color;
+	}
+
+	::-moz-selection { 
+		background-color: $bgColor;
+		color: $color;
+	}
+}
+
+// *******************
+// placeholder styling
+// *******************
+
+@mixin placeholder($color, $font){
+	::-webkit-input-placeholder { /* WebKit browsers */
+	    color: $color;
+	    @include $font;
+	}
+
+	:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	    color: $color;
+	    opacity:  1;
+	    @include $font;
+	}
+
+	::-moz-placeholder { /* Mozilla Firefox 19+ */
+	    color: $color;
+	    opacity:  1;
+	    @include $font;
+	}
+
+	:-ms-input-placeholder { /* Internet Explorer 10+ */
+	    color: $color;
+	    @include $font;
+	}
+}
+
 // **************
 // toggle display
 // **************
-// can include styling here or on separate page
-// that uses the tabber section
+
 .toggle-content-item{
 	display: none;
 
@@ -14,84 +77,93 @@
 // **************
 // column layout
 // **************
-// support lacks for ie 9 and before
-// but will just display as 1 column
-// so only use if that is acceptable
-.column-layout{
 
-	&.col2{
-		column-count: 2;
-		-moz-column-count: 2;
-		-webkit-column-count: 2;
-		column-gap: 4em;
-		-moz-column-gap: 4em;
-		-webkit-column-gap: 4em;
-	}
-
-	&.col3{
-		column-count: 3;
-		-moz-column-count: 3;
-		-webkit-column-count: 3;
-		column-gap: 4em;
-		-moz-column-gap: 4em;
-		-webkit-column-gap: 4em;
-	}
-	
+@mixin column-layout($colCount, $colGap){
+	column-count: $colCount;
+	-moz-column-count: $colCount;
+	-webkit-column-count: $colCount;
+	column-gap: ($colGap)em;
+	-moz-column-gap: ($colGap)em;
+	-webkit-column-gap: ($colGap)em;
 }
 
-// ************************
-// img/text section styling
-// ************************
-.section-holder{
-	.section{
-		@extend .clr;
+// ****************
+// easing functions
+// ****************
 
-		.img{
-			height: 100%;
-			// width: ; // set the width of the img side in %
-		}
+@mixin ease{
+	-webkit-transition: all 0.35s ease-in-out;
+	-moz-transition: all 0.35s ease-in-out;
+	-o-transition: all 0.35s ease-in-out;
+	transition: all 0.35s ease-in-out;
+}
 
-		.text{
-			// width: ; // set the width of the text side in %
-			// padding: ; // add top/bottom to give text section consistent height
+@mixin customEase($property, $duration){
+  -webkit-transition: $property $duration ease-in-out;
+  -moz-transition: $property $duration ease-in-out;
+  -o-transition: $property $duration ease-in-out;
+  transition: $property $duration ease-in-out;
+}
 
-			.content{
-				// max-width: ; // prevents content from spanning too long
-			}
-		}
+// **********
+// RowMachine
+// **********
 
-		&:nth-child(odd){ // change to even if you want text floated right first
-			
-			.img{
-				float: right;
-				// text-align: left; // may need if there is a non-background image
-			}
+@mixin RowMachine($numperrow, $marginR, $marginB){
+  width: ((100% - (($numperrow - 1) * $marginR)) / $numperrow);
+  margin-right: $marginR;
+  
+    &:nth-child(n) {
+      margin-bottom: $marginB;
+      margin-right: $marginR;
+    }
+  
+    &:nth-child(#{$numperrow}n) { 
+      margin-bottom: 0;
+      margin-right: 0;
+    }
+}
 
-			.text{
-				float: left;
+// *********************
+// background size cover
+// *********************
 
-				.content{
-					float: right;
-					// padding-right: ; // adds space between text and .img block
-				}
-			}
-		}
+@mixin coverimg($xPo, $yPo){
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  background-size: cover !important;
+  background-position: $xPo $yPo !important;
+  background-repeat: no-repeat !important;
+}
 
-		&:nth-child(even){ // change to odd if you want text floated right first
+// *********************
+// linear color gradient
+// *********************
 
-			.img{
-				float: left;
-				// text-align: right; // may need if there is a non-background image
-			}
-
-			.text{
-				float: right;
-
-				.content{
-					float: left;
-					// padding-left: ; // adds space between text and .img block
-				}
-			}
-		}
+@mixin colorGrad($orientation, $startColor, $startPercent, $endColor, $endPercent){
+	@if $orientation == vertical{
+		background: $startColor; /* Old browsers */
+		background: -moz-linear-gradient(top,  $startColor $startPercent, $endColor $endPercent); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop($startPercent,$startColor), color-stop($endPercent,$endColor)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top,  $startColor $startPercent,$endColor $endPercent); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top,  $startColor $startPercent,$endColor $endPercent); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  $startColor $startPercent,$endColor $endPercent); /* IE10+ */
+		background: linear-gradient(to bottom,  $startColor $startPercent,$endColor $endPercent); /* W3C */
+	}
+	@else if $orientation == horizontal{
+		background: $startColor; /* Old browsers */
+		background: -moz-linear-gradient(left,  $startColor $startPercent, $endColor $endPercent); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, right top, color-stop($startPercent,$startColor), color-stop($endPercent,$endColor)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(left,  $startColor $startPercent,$endColor $endPercent); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(left,  $startColor $startPercent,$endColor $endPercent); /* Opera 11.10+ */
+		background: -ms-linear-gradient(left,  $startColor $startPercent,$endColor $endPercent); /* IE10+ */
+		background: linear-gradient(to right,  $startColor $startPercent,$endColor $endPercent); /* W3C */
 	}
 }
+
+
+
+
+
+
+

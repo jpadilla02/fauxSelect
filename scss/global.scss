@@ -34,6 +34,7 @@
   zoom:1;
 }
 
+// resets any default form elements
 input, select, textarea{
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -49,42 +50,14 @@ input, select, textarea{
 	@include ease;
 
 	&:focus{
-		// outline: 1px solid ;
+		// outline: 1px solid ;–
 		@include ease;
 	}
 }
 
-::-webkit-input-placeholder { /* WebKit browsers */
-    // color: $accent;
-    // @include lightit;
-}
+@include placeholder($color, $font);
 
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    // color: $accent;
-    // opacity:  1;
-    // @include lightit;
-}
-
-::-moz-placeholder { /* Mozilla Firefox 19+ */
-    // color: $accent;
-    // opacity:  1;
-    // @include lightit;
-}
-
-:-ms-input-placeholder { /* Internet Explorer 10+ */
-    // color: $accent;
-    // @include lightit;
-}
-
-::selection { 
-	// background-color: ;
-	// color: ;
-}
-
-::-moz-selection { 
-	// background-color: ;
-	// color: ;
-}
+@include selection($bgColor, $color);
 
 a{
 	text-decoration: none;
@@ -148,26 +121,5 @@ p{ // include note for tag placement
 }
 
 a.button{ // consistent button styling
-	display: inline-block;
-	// color: ;
-	// background-color: ;
-	// border: ;
-	// border-radius: ;
-	// margin-right: ;
-	// margin-bottom: ;
-
-	&.inverse{
-		// background-color: ;
-		// color: ;
-	}
-
-	&.white{
-		// background-color: ;
-		// color: ;
-	}
-
-	&:last-child{
-		margin-bottom: 0;
-		margin-right: 0;
-	}
+	@include button($color, $bgColor, $bd, $bdrz);
 }
