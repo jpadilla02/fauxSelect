@@ -6,6 +6,31 @@
 	@return ($px / $base) * 1em;
 }
 
+// ****************
+// font declaration
+// ****************
+
+@mixin font($fontFamily, $color, $fontSize, $lineHeight: undefined, $margin: null){
+
+	@extend %#{$fontFamily};
+	color:$color;
+	font-size:em($fontSize);
+
+	@if $lineHeight == undefined{
+		line-height: 1em;
+	}
+	@else {
+		line-height:em($lineHeight, $fontSize);
+	}
+
+	@if $margin == null{
+		//do nothing
+	}
+	@else{
+		margin-bottom:$margin*1px - $lineHeight*1px;
+	}
+}
+
 // **************
 // button styling
 // **************
@@ -41,24 +66,24 @@
 @mixin placeholder($color, $font){
 	::-webkit-input-placeholder { /* WebKit browsers */
 	    color: $color;
-	    @include $font;
+	    @extend %#{$font};
 	}
 
 	:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
 	    color: $color;
 	    opacity:  1;
-	    @include $font;
+	    @extend %#{$font};
 	}
 
 	::-moz-placeholder { /* Mozilla Firefox 19+ */
 	    color: $color;
 	    opacity:  1;
-	    @include $font;
+	    @extend %#{$font};
 	}
 
 	:-ms-input-placeholder { /* Internet Explorer 10+ */
 	    color: $color;
-	    @include $font;
+	    @extend %#{$font};
 	}
 }
 
@@ -91,14 +116,7 @@
 // easing functions
 // ****************
 
-@mixin ease{
-	-webkit-transition: all 0.35s ease-in-out;
-	-moz-transition: all 0.35s ease-in-out;
-	-o-transition: all 0.35s ease-in-out;
-	transition: all 0.35s ease-in-out;
-}
-
-@mixin customEase($property, $duration){
+@mixin ease($property: all, $duration: 0.35s){
   -webkit-transition: $property $duration ease-in-out;
   -moz-transition: $property $duration ease-in-out;
   -o-transition: $property $duration ease-in-out;
