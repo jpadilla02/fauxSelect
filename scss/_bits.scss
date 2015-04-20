@@ -146,7 +146,7 @@
 // background size cover
 // *********************
 
-@mixin coverimg($xPo, $yPo){
+@mixin coverimg($xPo: 50%, $yPo: 50%){
   -webkit-background-size: cover !important;
   -moz-background-size: cover !important;
   background-size: cover !important;
