@@ -1,14 +1,35 @@
-// **********************
-// font-size: em function
-// **********************
+/*************************
+
+ STYLE DIRECTORY
+
+	1. =FontSizeFunction
+	2. =FontMaster
+	3. =ButtonStyle
+	4. =HighlightSelection
+	5. =Placeholder
+	6. =ToggleContent
+	7. =ColumnLayout
+	8. =Ease
+	9. =RowMachine
+	10. =CoverImg
+	11. =ColorGradient
+
+*************************/
+
+
+//=====================================================//
+// =FontSizeFunction
+//=====================================================//
 
 @function em($px, $base: 16) {
 	@return ($px / $base) * 1em;
 }
 
-// ****************
-// font declaration
-// ****************
+
+//=====================================================//
+// =FontMaster
+//=====================================================//
+
 
 @mixin font($fontFamily, $color, $fontSize, $lineHeight: undefined, $margin: null){
 
@@ -31,11 +52,14 @@
 	}
 }
 
-// **************
-// button styling
-// **************
 
-@mixin button($color, $bgColor, $bd:none, $bdrz:0){
+//=====================================================//
+// =ButtonStyle
+//=====================================================//
+
+
+@mixin button($font, $color, $bgColor, $bd:none, $bdrz:0){
+	@extend %#{$fontFamily};
 	display: inline-block;
 	color: $color;
 	background-color: $bgColor;
@@ -43,9 +67,11 @@
 	border-radius: $bdrz;
 }
 
-// *****************
-// selection styling
-// *****************
+
+//=====================================================//
+// =HighlightSelection
+//=====================================================//
+
 
 @mixin selection($bgColor, $color){
 	::selection { 
@@ -59,9 +85,11 @@
 	}
 }
 
-// *******************
-// placeholder styling
-// *******************
+
+//=====================================================//
+// =Placeholder
+//=====================================================//
+
 
 @mixin placeholder($color, $font){
 	::-webkit-input-placeholder { /* WebKit browsers */
@@ -87,9 +115,11 @@
 	}
 }
 
-// **************
-// toggle display
-// **************
+
+//=====================================================//
+// =ToggleContent
+//=====================================================//
+
 
 .toggle-content-item{
 	display: none;
@@ -99,9 +129,11 @@
 	}
 }
 
-// **************
-// column layout
-// **************
+
+//=====================================================//
+// =ColumnLayout
+//=====================================================//
+
 
 @mixin column-layout($colCount, $colGap){
 	column-count: $colCount;
@@ -112,9 +144,11 @@
 	-webkit-column-gap: ($colGap)em;
 }
 
-// ****************
-// easing functions
-// ****************
+
+//=====================================================//
+// =Ease
+//=====================================================//
+
 
 @mixin ease($property: all, $duration: 0.35s){
   -webkit-transition: $property $duration ease-in-out;
@@ -123,9 +157,11 @@
   transition: $property $duration ease-in-out;
 }
 
-// **********
-// RowMachine
-// **********
+
+//=====================================================//
+// =RowMachine
+//=====================================================//
+
 
 @mixin RowMachine($numperrow, $marginR, $marginB){
   width: ((100% - (($numperrow - 1) * $marginR)) / $numperrow);
@@ -142,9 +178,11 @@
     }
 }
 
-// *********************
-// background size cover
-// *********************
+
+//=====================================================//
+// =CoverImg
+//=====================================================//
+
 
 @mixin coverimg($xPo: 50%, $yPo: 50%){
   -webkit-background-size: cover !important;
@@ -154,9 +192,11 @@
   background-repeat: no-repeat !important;
 }
 
-// *********************
-// linear color gradient
-// *********************
+
+//=====================================================//
+// =ColorGradient
+//=====================================================//
+
 
 @mixin colorGrad($orientation, $startColor, $startPercent, $endColor, $endPercent){
 	@if $orientation == vertical{
@@ -178,10 +218,3 @@
 		background: linear-gradient(to right,  $startColor $startPercent,$endColor $endPercent); /* W3C */
 	}
 }
-
-
-
-
-
-
-
