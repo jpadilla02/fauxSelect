@@ -31,25 +31,19 @@
 //=====================================================//
 
 
-@mixin font($fontFamily, $color, $fontSize, $textTransform: none, $lineHeight: undefined, $margin: null){
+@mixin font($fontFamily, $fontSize, $color, $textTransform: none, $lineHeight: undefined, $margin: undefined){
 
 	@extend %#{$fontFamily};
 	color:$color;
 	font-size:em($fontSize);
 	text-transform: $textTransform;
-
-	@if $lineHeight == undefined{
-		line-height: 1em;
-	}
-	@else {
+	
+	@if $lineHeight != undefined{
 		line-height:em($lineHeight, $fontSize);
 	}
 
-	@if $margin == null{
-		//do nothing
-	}
-	@else{
-		margin-bottom:$margin*1px - $lineHeight*1px;
+	@if $margin != undefined{
+		margin-bottom:$margin*1px - ($lineHeight*1px - $fontSize*1px);
 	}
 }
 
