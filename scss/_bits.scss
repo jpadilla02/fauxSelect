@@ -13,6 +13,7 @@
 	9. =RowMachine
 	10. =CoverImg
 	11. =ColorGradient
+	12. =AbsolutePositioning
 
 *************************/
 
@@ -212,4 +213,40 @@
 		background: -ms-linear-gradient(left,  $startColor $startPercent,$endColor $endPercent); /* IE10+ */
 		background: linear-gradient(to right,  $startColor $startPercent,$endColor $endPercent); /* W3C */
 	}
+}
+
+//=====================================================//
+// =AbsolutePositioning
+//=====================================================//
+
+%abscover{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+}
+
+@mixin centerH($height){
+	position: absolute;
+	height: $height * 1px;
+	top: 50%;
+	margin-top: -1px * ($height/2);
+}
+
+@mixin centerW($width){
+	position: absolute;
+	width: $width * 1px;
+	left: 50%;
+	margin-left: -1px * ($width/2);
+}
+
+@mixin centerFull($height, $width){
+	position: absolute;
+	height: $height * 1px;
+	top: 50%;
+	margin-top: -1px * ($height/2);
+	width: $width * 1px;
+	left: 50%;
+	margin-left: -1px * ($width/2);
 }
