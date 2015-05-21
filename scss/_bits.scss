@@ -256,15 +256,15 @@
 // =MultiplyOverlay
 //=====================================================//
 
-@include multiply($position, $color, $blendAmount){
+@include multiply($color, $blendAmount, $itemPos: relative, $childrenPos: relative){
 	$opacity: 100 * $blendAmount;
 	
-	position: relative;
+	position: $itemPos;
 	background-blend-mode: multiply;
 	background-color: rgba($color, $blendAmount);
 
 	> *{
-		position: $position;
+		position: $childrenPos;
 		z-index: 5;
 	}
 
