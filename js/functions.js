@@ -16,6 +16,6 @@ jQuery(document).ready(function($){
 
 	// tests for IE and appends overlayFix in cases for multiplied background
 	// if( /*@cc_on!@*/false || !!document.documentMode ){
-		// $('.sample-element').append('<div class="overlayFix"/>');
+	// 	$('.sample-element').append('<div class="overlayFix"/>');
 	// }
 });
