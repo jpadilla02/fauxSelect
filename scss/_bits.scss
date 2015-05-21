@@ -14,6 +14,7 @@
 	10. =CoverImg
 	11. =ColorGradient
 	12. =AbsolutePositioning
+	13. =MultiplyOverlay
 
 *************************/
 
@@ -249,4 +250,29 @@
 	width: $width * 1px;
 	left: 50%;
 	margin-left: -1px * ($width/2);
+}
+
+//=====================================================//
+// =MultiplyOverlay
+//=====================================================//
+
+@include multiply($position, $color, $blendAmount){
+	$opacity: 100 * $blendAmount;
+	
+	position: relative;
+	background-blend-mode: multiply;
+	background-color: rgba($color, $blendAmount);
+
+	> *{
+		position: $position;
+		z-index: 5;
+	}
+
+	.overlayFix{
+		z-index: 0;
+		background-color: $color;
+		@extend %abscover;
+		opacity: $blendAmount;
+		filter: alpha(opacity=$opacity);
+	}
 }
