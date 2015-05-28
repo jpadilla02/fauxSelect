@@ -55,10 +55,8 @@
 //=====================================================//
 
 
-@mixin button($font, $color, $bgColor, $bd:none, $bdrz:0){
-	@extend %#{$fontFamily};
+@mixin button($bgColor, $bd:none, $bdrz:0){
 	display: inline-block;
-	color: $color;
 	background-color: $bgColor;
 	border: $bd;
 	border-radius: $bdrz;
