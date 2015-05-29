@@ -157,6 +157,10 @@
 // =GridMe
 //=====================================================//
 
+//=====================================================//
+// =GridMe
+//=====================================================//
+
 @mixin GridMe($columns, $marginR, $marginB, $breakpoints:undefined){
 	width: ((100% - (($columns - 1) * $marginR)) / $columns);
 	margin-right: $marginR;
@@ -171,6 +175,10 @@
 		margin-right:0;
 	}
 
+	&:nth-last-child(-n+#{$columns}){
+		margin-bottom:0;
+	}
+
 
 	@if( $breakpoints != undefined ){
 		$breaks: $breakpoints;
@@ -181,10 +189,15 @@
 
 				&:nth-child(n){
 					margin-right:$marginR;
+					margin-bottom:$marginB;
 				}
 
 				&:nth-child(#{$column}n){
 					margin-right:0;
+				}
+
+				&:nth-last-child(-n+#{$column}){
+					margin-bottom:0;
 				}
 			}
 		}
