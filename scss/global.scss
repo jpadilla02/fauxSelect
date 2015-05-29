@@ -1,26 +1,19 @@
-@import "_reset";
-@import "_breakpoints";
-@import "_bits";
-@import "_fontstyles";
-@import "_header";
-@import "_footer";
-@import "_index";
-@import "_interior";
+@import "reset";
+@import "breakpoints";
+@import "bits";
+@import "fontstyles";
+@import "header";
+@import "footer";
+@import "index";
+@import "interior/manifest";
 
 // set normal container width here
 
 .container{
 	max-width: 1200px;
 	margin: 0 auto;
+	width: 95%;
 }
-
-// set maximum container width
-// if necessary
-
-// .max-contain{
-// 	max-width: 1800px;
-// 	margin: 0 auto;
-// }
 
 .clr:before,
 .clr:after {
@@ -54,8 +47,6 @@ input, select, textarea{
 		@include ease;
 	}
 }
-
-@include placeholder($color, $font);
 
 @include selection($bgColor, $color);
 

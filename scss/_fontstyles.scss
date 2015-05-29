@@ -1,5 +1,62 @@
-//////////// ********* COLORS *************** \\\\\\
+/*************************
+
+ STYLE DIRECTORY
+
+	1. =Colors
+	2. =Fonts
+
+*************************/
 
 
-//////////// ********* FONTS *************** \\\\\\
+//=====================================================//
+// =Colors
+//=====================================================//
 
+$red: #d12528;
+$orange: #f05a28;
+
+$mainText: #939597;
+$header: #6d6e70;
+
+// $accentText: #a7a9ab;
+$copyright: #bbbdc0;
+
+$slashNum: #e6e7e8;
+$slash: rgba($red, 0.3);
+
+//=====================================================//
+// =Fonts
+//=====================================================//
+
+%light{
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: 300;
+}
+
+%lightit{
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: 300;
+	font-style: italic;
+}
+
+%norm{
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: 400;
+}
+
+%med{
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: 500;
+}
+
+%medit{
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: 500;
+	font-style: italic;
+}
+
+%boldit{
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: 700;
+	font-style: italic;
+}

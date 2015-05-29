@@ -10,7 +10,7 @@
 	6. =ToggleContent
 	7. =ColumnLayout
 	8. =Ease
-	9. =RowMachine
+	9. =GridMe
 	10. =CoverImg
 	11. =ColorGradient
 	12. =AbsolutePositioning
@@ -154,23 +154,41 @@
 
 
 //=====================================================//
-// =RowMachine
+// =GridMe
 //=====================================================//
 
+@mixin GridMe($columns, $marginR, $marginB, $breakpoints:undefined){
+	width: ((100% - (($columns - 1) * $marginR)) / $columns);
+	margin-right: $marginR;
+	margin-bottom: $marginB;
+	float:left;
+	-webkit-transition: width 0.35s ease-in-out;
+	-moz-transition: width 0.35s ease-in-out;
+	-o-transition: width 0.35s ease-in-out;
+	transition: width 0.35s ease-in-out;
 
-@mixin RowMachine($numperrow, $marginR, $marginB){
-  width: ((100% - (($numperrow - 1) * $marginR)) / $numperrow);
-  margin-right: $marginR;
-  
-    &:nth-child(n) {
-      margin-bottom: $marginB;
-      margin-right: $marginR;
-    }
-  
-    &:nth-child(#{$numperrow}n) { 
-      margin-bottom: 0;
-      margin-right: 0;
-    }
+	&:nth-child(#{$columns}n){
+		margin-right:0;
+	}
+
+
+	@if( $breakpoints != undefined ){
+		$breaks: $breakpoints;
+
+		@each $breakpoint, $column in $breaks{
+			@media (max-width:#{$breakpoint}px){
+				width: ((100% - (($column - 1) * $marginR)) / $column);
+
+				&:nth-child(n){
+					margin-right:$marginR;
+				}
+
+				&:nth-child(#{$column}n){
+					margin-right:0;
+				}
+			}
+		}
+	}
 }
 
 
