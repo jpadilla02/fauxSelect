@@ -272,7 +272,7 @@
 // =MultiplyOverlay
 //=====================================================//
 
-@include multiply($color, $blendAmount, $itemPos: relative, $childrenPos: relative){
+@mixin multiply($color, $blendAmount, $itemPos: relative, $childrenPos: relative){
 	$opacity: 100 * $blendAmount;
 	
 	position: $itemPos;

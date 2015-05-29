@@ -48,7 +48,7 @@ input, select, textarea{
 	}
 }
 
-@include selection($bgColor, $color);
+// @include selection($bgColor, $color);
 
 a{
 	text-decoration: none;
@@ -64,53 +64,38 @@ a{
 
 h1{ // include note for tag placement
 
-	&:last-child{
-		margin-bottom: 0;
-	}
 }
 
 h2{ // include note for tag placement
 	
-	&:last-child{
-		margin-bottom: 0;
-	}
 }
 
 h3{ // include note for tag placement
 	
-	&:last-child{
-		margin-bottom: 0;
-	}
 }
 
 h4{ // include note for tag placement
 	
-	&:last-child{
-		margin-bottom: 0;
-	}
 }
 
 h5{ // include note for tag placement
 	
-	&:last-child{
-		margin-bottom: 0;
-	}
 }
 
 h6{ // include note for tag placement
 	
-	&:last-child{
-		margin-bottom: 0;
-	}
 }
 
-p{ // include note for tag placement
-	
+p{
+
+}
+
+h1, h2, h3, h4, h5, h6, p{
 	&:last-child{
 		margin-bottom: 0;
 	}
 }
 
 a.button{ // consistent button styling
-	@include button($color, $bgColor, $bd, $bdrz);
+	// @include button($color, $bgColor, $bd, $bdrz);
 }
