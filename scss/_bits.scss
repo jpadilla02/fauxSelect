@@ -156,10 +156,10 @@
 // =GridMe
 //=====================================================//
 
-@mixin GridMe($columns, $marginR, $marginB, $breakpoints:undefined){
+@mixin GridMe($columns, $marginR, $marginT, $breakpoints:undefined){
 	width: ((100% - (($columns - 1) * $marginR)) / $columns);
 	margin-right: $marginR;
-	margin-bottom: $marginB;
+	margin-top: $marginT;
 	float:left;
 	-webkit-transition: width 0.35s ease-in-out;
 	-moz-transition: width 0.35s ease-in-out;
@@ -170,8 +170,8 @@
 		margin-right:0;
 	}
 
-	&:nth-last-child(-n+#{$columns}){
-		margin-bottom:0;
+	&:nth-child(-n+#{$columns}){
+		margin-top:0;
 	}
 
 
@@ -184,15 +184,15 @@
 
 				&:nth-child(n){
 					margin-right:$marginR;
-					margin-bottom:$marginB;
+					margin-bottom:$marginT;
 				}
 
 				&:nth-child(#{$column}n){
 					margin-right:0;
 				}
 
-				&:nth-last-child(-n+#{$column}){
-					margin-bottom:0;
+				&:nth-child(-n+#{$column}){
+					margin-top:0;
 				}
 			}
 		}
