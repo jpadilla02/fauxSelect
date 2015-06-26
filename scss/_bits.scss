@@ -2,22 +2,52 @@
 
  STYLE DIRECTORY
 
-	1. =FontSizeFunction
-	2. =FontMaster
-	3. =ButtonStyle
-	4. =HighlightSelection
-	5. =Placeholder
-	6. =ToggleContent
-	7. =ColumnLayout
-	8. =Ease
-	9. =GridMe
-	10. =CoverImg
-	11. =ColorGradient
-	12. =AbsolutePositioning
-	13. =MultiplyOverlay
+	=DeclareFonts
+	=FontSizeFunction
+	=FontMaster
+	=ButtonStyle
+	=FormatSection
+	=HighlightSelection
+	=Placeholder
+	=ToggleContent
+	=ColumnLayout
+	=Ease
+	=GridMe
+	=CoverImg
+	=ColorGradient
+	=AbsolutePositioning
+	=MultiplyOverlay
 
 *************************/
 
+// test addition
+//=====================================================//
+// =DeclareFonts
+//=====================================================//
+
+@mixin declare-fonts($font-face:null, $font-list: $main-font-list, $font-declaration: $main-font){
+
+	@if $font-face == null{
+		@each $font-name, $font-weight in $font-list{
+			%#{$font-name}{
+				font-family: $font-declaration;
+				font-weight: $font-weight;
+
+				&it{
+					@extend %#{$font-name};
+					font-style: italic;
+				}
+			}
+		}
+	}
+	@else{
+		@each $font-name, $font-family in $font-list{
+			%#{$font-name}{
+				font-family: $font-family
+			}
+		}
+	}
+}
 
 //=====================================================//
 // =FontSizeFunction
@@ -33,19 +63,27 @@
 //=====================================================//
 
 
-@mixin font($fontFamily, $fontSize, $color, $textTransform: none, $lineHeight: undefined, $margin: undefined){
-
-	@extend %#{$fontFamily};
-	color:$color;
-	font-size:em($fontSize);
-	text-transform: $textTransform;
-	
-	@if $lineHeight != undefined{
-		line-height:em($lineHeight, $fontSize);
+@mixin font($font-family:null, $font-size:16, $color:null, $line-height:null, $margin-bottom:null, $text-transform:null){
+	@if $font-family != null{
+		@extend %#{$font-family};
 	}
 
-	@if $margin != undefined{
-		margin-bottom:$margin*1px - ($lineHeight*1px - $fontSize*1px);
+	color:$color;
+	text-transform: $text-transform;
+	font-size:em($font-size);
+
+	@if $line-height != null{
+		line-height:em($line-height, $font-size);
+	}
+
+	@if $margin-bottom != null{
+		$margin-holder: $margin-bottom*1px;
+
+		@if $line-height != null{
+			margin-bottom: $margin-holder - ($line-height*1px - $font-size*1px);
+		} @else{
+			margin-bottom: $margin-holder;
+		}
 	}
 }
 
@@ -55,27 +93,171 @@
 //=====================================================//
 
 
-@mixin button($bgColor, $bd:none, $bdrz:0){
-	display: inline-block;
-	background-color: $bgColor;
-	border: $bd;
-	border-radius: $bdrz;
+@mixin button($background-color:null, $border:null, $border-radius:null, $padding:null, $min-width:null, $display:inline-block){
+	display: $display;
+	background-color: $background-color;
+	border: $border;
+	border-radius: $border-radius;
+	padding: $padding;
+	min-width: $min-width;
 }
 
+
+//=====================================================//
+// =FormatSection
+//=====================================================//
+
+@mixin formatSection($primaryW:50%, $containerW:1440px, $primaryPad:0, $contentPad:0, $start:odd, $stacks:(850px hide), $elType:null){
+	$secondaryW: 100% - $primaryW;
+	$primaryDec: $primaryW / 100%;
+	$secondaryDec: $secondaryW / 100%;
+
+	.section-holder{
+		.section{
+			@extend .clr;
+
+			+ *{
+				clear: both;
+			}
+
+			.secondary{
+				height: 100%;
+				width: $secondaryW;
+			}
+
+			.primary{
+				width: $primaryW;
+				padding: $primaryPad;
+
+				.content{
+					max-width: ($primaryDec * $containerW) - $contentPad;
+				}
+			}
+		}
+
+		@if $start == odd {
+			.section{
+				.secondary{
+					float: right;
+				}
+
+				.primary{
+					float: left;
+
+					.content{
+						float: right;
+						padding-right: $contentPad + px;
+					}
+				}
+
+				&:nth-child(even){
+
+					.secondary{
+						float: left;
+					}
+
+					.primary{
+						float: right;
+
+						.content{
+							float: left;
+							padding-left: $contentPad + px;
+						}
+					}
+				}
+			}
+		}
+
+		@else if $start == even {
+			.section{
+				.secondary{
+					float: right;
+				}
+
+				.primary{
+					float: left;
+
+					.content{
+						float: right;
+						padding-right: $contentPad + px;
+					}
+				}
+
+				&:nth-child(odd){
+
+					.secondary{
+						float: left;
+					}
+
+					.primary{
+						float: right;
+
+						.content{
+							float: left;
+							padding-left: $contentPad + px;
+						}
+					}
+				}
+			}
+		}
+
+		@media (max-width: $containerW){
+			.section:nth-child(n) .primary .content{
+				max-width: 100%;
+				width: 90%;
+				padding: 0 5%;
+			}
+		}
+
+		@media (max-width: nth($stacks, 1)){
+			.section:nth-child(n){
+				height: auto !important;
+
+				.primary{
+					width: 100%;
+					float: none;
+
+					.content{
+						float: none;
+					}
+				}
+
+				@if nth($stacks, 2) == hide {
+					.secondary{
+						display: none;
+					}
+				}
+				@else{
+					.secondary{
+						height: nth($stacks, 2) !important;
+						width: 100%;
+						float: none;
+
+						@if $elType != null{
+							#{$elType}{
+								top: 0 !important;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 //=====================================================//
 // =HighlightSelection
 //=====================================================//
 
 
-@mixin selection($bgColor, $color){
-	::selection { 
-		background-color: $bgColor;
+@mixin selection($background-color, $color){
+	::selection {
+		background-color: $background-color;
 		color: $color;
 	}
 
-	::-moz-selection { 
-		background-color: $bgColor;
+	::-moz-selection {
+		background-color: $background-color;
 		color: $color;
 	}
 }
@@ -116,13 +298,13 @@
 //=====================================================//
 
 
-.toggle-content-item{
-	display: none;
+// .toggle-content-item{
+// 	display: none;
 
-	&.active{
-		display: block;
-	}
-}
+// 	&.active{
+// 		display: block;
+// 	}
+// }
 
 
 //=====================================================//
@@ -130,13 +312,13 @@
 //=====================================================//
 
 
-@mixin column-layout($colCount, $colGap){
-	column-count: $colCount;
-	-moz-column-count: $colCount;
-	-webkit-column-count: $colCount;
-	column-gap: ($colGap)em;
-	-moz-column-gap: ($colGap)em;
-	-webkit-column-gap: ($colGap)em;
+@mixin column-layout($column-count:2, $column-gap:4){
+	column-count: $column-count;
+	-moz-column-count: $column-count;
+	-webkit-column-count: $column-count;
+	column-gap: ($column-gap)em;
+	-moz-column-gap: ($column-gap)em;
+	-webkit-column-gap: ($column-gap)em;
 }
 
 
@@ -146,20 +328,20 @@
 
 
 @mixin ease($property: all, $duration: 0.35s){
-  -webkit-transition: $property $duration ease-in-out;
-  -moz-transition: $property $duration ease-in-out;
-  -o-transition: $property $duration ease-in-out;
-  transition: $property $duration ease-in-out;
+	-webkit-transition: $property $duration ease-in-out;
+	-moz-transition: $property $duration ease-in-out;
+	-o-transition: $property $duration ease-in-out;
+	transition: $property $duration ease-in-out;
 }
 
 //=====================================================//
 // =GridMe
 //=====================================================//
 
-@mixin GridMe($columns, $marginR, $marginT, $breakpoints:undefined){
-	width: ((100% - (($columns - 1) * $marginR)) / $columns);
-	margin-right: $marginR;
-	margin-top: $marginT;
+@mixin GridMe($columns, $margin-right:0, $margin-top:0, $breakpoints:undefined){
+	width: ((100% - (($columns - 1) * $margin-right)) / $columns);
+	margin-right: $margin-right;
+	margin-top: $margin-top;
 	float:left;
 	-webkit-transition: width 0.35s ease-in-out;
 	-moz-transition: width 0.35s ease-in-out;
@@ -180,11 +362,11 @@
 
 		@each $breakpoint, $column in $breaks{
 			@media (max-width:#{$breakpoint}px){
-				width: ((100% - (($column - 1) * $marginR)) / $column);
+				width: ((100% - (($column - 1) * $margin-right)) / $column);
 
 				&:nth-child(n){
-					margin-right:$marginR;
-					margin-bottom:$marginT;
+					margin-right:$margin-right;
+					margin-top:$margin-top;
 				}
 
 				&:nth-child(#{$column}n){
@@ -206,11 +388,11 @@
 
 
 @mixin coverimg($xPo: 50%, $yPo: 50%){
-  -webkit-background-size: cover !important;
-  -moz-background-size: cover !important;
-  background-size: cover !important;
-  background-position: $xPo $yPo !important;
-  background-repeat: no-repeat !important;
+	-webkit-background-size: cover !important;
+	-moz-background-size: cover !important;
+	background-size: cover !important;
+	background-position: $xPo $yPo !important;
+	background-repeat: no-repeat !important;
 }
 
 
@@ -219,7 +401,7 @@
 //=====================================================//
 
 
-@mixin colorGrad($orientation, $startColor, $startPercent, $endColor, $endPercent){
+@mixin colorGrad($startColor, $endColor, $startPercent:0%, $endPercent:100%, $orientation:horizontal){
 	@if $orientation == vertical{
 		background: $startColor; /* Old browsers */
 		background: -moz-linear-gradient(top,  $startColor $startPercent, $endColor $endPercent); /* FF3.6+ */
@@ -280,23 +462,23 @@
 // =MultiplyOverlay
 //=====================================================//
 
-@mixin multiply($color, $blendAmount, $itemPos: relative, $childrenPos: relative){
-	$opacity: 100 * $blendAmount;
-	
+@mixin multiply($color, $opacity, $itemPos: relative, $childrenPos: relative){
+	$filter: 100 * $opacity;
+
 	position: $itemPos;
 	background-blend-mode: multiply;
-	background-color: rgba($color, $blendAmount);
-
-	> *{
-		position: $childrenPos;
-		z-index: 5;
-	}
+	background-color: rgba($color, $opacity);
 
 	.overlayFix{
 		z-index: 0;
 		background-color: $color;
 		@extend %abscover;
-		opacity: $blendAmount;
-		filter: alpha(opacity=$opacity);
+		opacity: $opacity;
+		filter: alpha(opacity=$filter);
+
+		+ *{
+			position: $childrenPos;
+			z-index: 5;
+		}
 	}
 }
