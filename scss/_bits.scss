@@ -17,6 +17,7 @@
 	=ColorGradient
 	=AbsolutePositioning
 	=MultiplyOverlay
+	=GravityForms
 
 *************************/
 
@@ -479,6 +480,183 @@
 		+ *{
 			position: $childrenPos;
 			z-index: 5;
+		}
+	}
+}
+
+
+//=====================================================//
+// =GravityForms
+//=====================================================//
+
+@mixin formCol($smallestCol:3, $marginR:3%, $marginB:20px, $paddingY:10, $paddingX:10){
+
+	//========================================= FORM CLEAR
+
+	.gform_body{
+		overflow:hidden;
+
+		input[type="text"], input[type="password"], input[type="tel"], input[type="email"], textarea{
+			border:none;
+		}
+
+		ul{
+			list-style:none;
+			padding:0;
+			margin:0;
+		}
+	}
+
+	.gfield_description{
+		display:none;
+	}
+
+	.gform_validation_container{
+		display:none;
+	}
+
+	.gform_body{
+		ul:before,
+		ul:after {
+		  content:"";
+		  display:table;
+		}
+		ul:after {
+		  clear:both;
+		}
+		ul {
+		  zoom:1;
+		}
+		ul.gform_fields + *{
+			clear:both;
+		}
+		
+		li{
+			float:left;
+		}
+	}
+
+	.gform_button{
+		border:none;
+		background:none;
+	}
+
+	//========================================= INPUT WIDTH
+	
+	$i:$smallestCol;
+
+	@while $i > 0{
+
+		.gform_body{
+			li.col#{$i}{
+				// width: ((100% - (($i - 1) * $marginR)) / $i);
+				width:(100% / $i) - $marginR;
+				margin-right:$marginR;
+				margin-bottom:$marginB;
+
+				// &:nth-of-type(#{$i}n){
+				// 	margin-right:0;
+				// }
+			}
+
+			.col#{$i} input{
+				width:calc(100% - #{10 + $paddingX}px);
+				padding:#{$paddingY}px #{$paddingX}px;
+			}
+		}
+
+		$i:$i - 1;
+	}
+
+	.gform_body{
+		ul{
+			width:100% + $marginR;
+		}
+	}
+}
+
+@mixin formStyle($borderSize:1px, $borderColor:lightgray, $borderRadius:0, $bgColor:null){
+	.gform_body{
+		input[type="text"], input[type="password"], input[type="tel"], input[type="email"], textarea{
+			box-shadow:0 0 0 $borderSize $borderColor inset;
+			border-radius:$borderRadius;
+			background-color:$bgColor;
+		}
+	}
+}
+
+@mixin formText($font:reg, $size:16, $placeColor:lightgray, $inputColor:black, $labelFont:$font, $labelSize:$size, $labelColor:black, $labelMargin:10px){
+
+	//========================================= PLACEHOLDER TEXT
+
+	::-webkit-input-placeholder {
+		color: $placeColor;
+		opacity:1;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+		color: $placeColor;
+		opacity:1;
+	}
+
+	::-moz-placeholder { /* Firefox 19+ */
+		color: $placeColor;
+		opacity:1;
+	}
+
+	:-ms-input-placeholder {
+		color: $placeColor;
+		opacity:1;
+	}
+
+
+	//========================================= INPUT TEXT
+
+	.gform_body{
+		input{
+			color:$inputColor;
+			@extend %#{$font};
+			font-size:($size/16) * 1em;
+		}
+
+		label{
+			display:block;
+			@extend %#{$labelFont};
+			font-size:($labelSize/16) * 1em;
+			color:$labelColor;
+			margin-bottom:$labelMargin;
+		}
+	}
+}
+
+@mixin formSubmit($family:reg, $size:16, $color:white, $padding:15px 18px, $bg:blue, $radius:null, $border:null){
+	.gform_footer{
+		.gform_button{
+			cursor:pointer;
+			@extend %#{$family};
+			font-size:($size/16) * 1em;
+			color:$color;
+			padding:$padding;
+			background-color:$bg;
+			border:$border;
+			border-radius:$radius;
+		}
+	}
+}
+
+@mixin formFocus($borderWidth:1px, $borderColor:red, $text:gray, $bg:null){
+	.gform_body{
+		input[type="text"], input[type="password"], input[type="tel"], input[type="email"], textarea{
+			-webkit-transition: all 0.35s ease-in-out;
+			-moz-transition: all 0.35s ease-in-out;
+			-o-transition: all 0.35s ease-in-out;
+			transition: all 0.35s ease-in-out;
+
+			&:focus{
+				box-shadow:0 0 0 $borderWidth $borderColor inset;
+				background-color:$bg;
+				color:$text;
+			}
 		}
 	}
 }
