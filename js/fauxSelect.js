@@ -118,24 +118,26 @@
 				$option.not($option.eq(selectIndex)).removeProp('selected');
 				$option.eq(selectIndex).prop('selected', 'selected');
 			});
-			$fauxHead.click(function(){
-				if( $fauxSelectHolder.hasClass('open') ){
-					$fauxSelectHolder.removeClass('open');
-					$fauxOption.each(function(index){
-						$(this).css({
-							'-webkit-transition-delay': '0s',
-							'-moz-transition-delay': '0s',
-							'-o-transition-delay': '0s',
-							'transition-delay': '0s',
-							'top': 0,
-							'z-index': index
+			if( $fauxHead !== undefined && $fauxHead.length > 0 ){
+				$fauxHead.click(function(){
+					if( $fauxSelectHolder.hasClass('open') ){
+						$fauxSelectHolder.removeClass('open');
+						$fauxOption.each(function(index){
+							$(this).css({
+								'-webkit-transition-delay': '0s',
+								'-moz-transition-delay': '0s',
+								'-o-transition-delay': '0s',
+								'transition-delay': '0s',
+								'top': 0,
+								'z-index': index
+							});
 						});
-					});
-					$(this).css('z-index', numOptions + 2);
-					$fauxDropper.css('z-index', numOptions + 3);
-					$option.removeProp('selected');
-				}
-			});
+						$(this).css('z-index', numOptions + 2);
+						$fauxDropper.css('z-index', numOptions + 3);
+						$option.removeProp('selected');
+					}
+				});
+			}
 			$(document).mouseup(function(e){
 				if( $fauxSelectHolder.hasClass('open') ){
 					if (!$fauxSelectHolder.is(e.target) && $fauxSelectHolder.has(e.target).length === 0){
@@ -153,23 +155,24 @@
 				    }
 				}
 			});
-
-			$fauxHead.click(function(){
-				if( $fauxSelectHolder.hasClass('open') ){
-			        $fauxSelectHolder.removeClass('open');
-					$fauxOption.each(function(){
-						$(this).css({
-							'-webkit-transition-delay': '0s',
-							'-moz-transition-delay': '0s',
-							'-o-transition-delay': '0s',
-							'transition-delay': '0s',
-							'top': 0
+			if( $fauxHead !== undefined && $fauxHead.length > 0 ){
+				$fauxHead.click(function(){
+					if( $fauxSelectHolder.hasClass('open') ){
+				        $fauxSelectHolder.removeClass('open');
+						$fauxOption.each(function(){
+							$(this).css({
+								'-webkit-transition-delay': '0s',
+								'-moz-transition-delay': '0s',
+								'-o-transition-delay': '0s',
+								'transition-delay': '0s',
+								'top': 0
+							});
 						});
-					});
-					$(this).css('z-index', numOptions + 1);
-					$fauxDropper.css('z-index', numOptions + 3);
-				}
-			});
+						$(this).css('z-index', numOptions + 1);
+						$fauxDropper.css('z-index', numOptions + 3);
+					}
+				});
+			}
         });
 	};
 
