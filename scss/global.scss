@@ -1,105 +1,98 @@
-@import "reset";
-@import "breakpoints";
-@import "bits";
-@import "fontstyles";
-@import "header";
-@import "footer";
-@import "index";
-@import "interior/manifest";
+.fauxSelectHolder{
+	position: relative;
 
-// set normal container width here
-
-.container{
-	max-width: 1200px;
-	margin: 0 auto;
-	width: 95%;
+	select{
+		position: absolute;
+		z-index: -1;
+		opacity: 0;
+		filter: alpha(opacity=0);
+		left: 999999px;
+	}
 }
 
-.clr:before,
-.clr:after {
-  content:"";
-  display:table;
-}
-.clr:after {
-  clear:both;
-}
-.clr {
-  zoom:1;
+.fauxSelect{
+	position: absolute;
+	list-style: none;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
 }
 
-// resets any default form elements
-input, select, textarea{
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	-ms-appearance: none;
-	appearance: none;
-	outline: none;
-	border: none;
-	background-color: transparent;
-	border-radius: 0;
-	outline-offset: -1px;
+.fauxOption{
+	position: absolute;
+	top: 0;
+	// this is to keep longer "options" from spilling over the container
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	// include easing properties for top value
+	-webkit-transition-property: top ease-in-out;
+	-moz-transition-property: top ease-in-out;
+	-o-transition-property: top ease-in-out;
+	transition-property: top ease-in-out;
+	// set/change delay and duration in optional parameters
+}
+
+.fauxSelectHolder.open .fauxOption{
+	text-overflow: inherit;
+	overflow: visible;
+	white-space: normal;
+}
+
+// testing/development purposes only
+.fauxSelectHolder{
+	width: 200px;
+	height: 20px;
+	z-index: 20;
+	cursor: pointer;
+}
+
+.fauxSelectHolder, .fauxHead, .fauxOption{
+	padding: 10px 10px;
+}
+
+.fauxHead{
+	background-color: #f1f1f2;
+	position: absolute;
+	height: calc(100% - 20px);
+	width: calc(100% - 20px);
+	top: 0;
+	left: 0;
+}
+
+.fauxDropper{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background: transparent;
+}
+
+.fauxSelect{
 	padding: 0;
 	margin: 0;
-	@include ease;
+}
 
-	&:focus{
-		// outline: 1px solid ;–
-		@include ease;
+.fauxOption{
+	width: calc(100% - 20px);
+	min-height: calc(100% - 20px);
+	margin: 0;
+
+	@for $i from 1 through 10{
+		&:nth-child(#{$i}){
+			background-color: darken(red, 5 * $i);
+		}
 	}
 }
 
-// @include selection($bgColor, $color);
-
-a{
-	text-decoration: none;
-	color: inherit;
-	@include ease;
-
-	&:hover{
-		@include ease;
-	}
-}
-
-///// global tag styling
-
-h1{ // include note for tag placement
-
-}
-
-h2{ // include note for tag placement
-	
-}
-
-h3{ // include note for tag placement
-	
-}
-
-h4{ // include note for tag placement
-	
-}
-
-h5{ // include note for tag placement
-	
-}
-
-h6{ // include note for tag placement
-	
-}
-
-p{
-
-}
-
-h1, h2, h3, h4, h5, h6, p{
-	&:last-child{
-		margin-bottom: 0;
-	}
-}
-
-.wysiwyg ul{
-	
-}
-
-a.button{ // consistent button styling
-	// @include button($color, $bgColor, $bd, $bdrz);
+.fauxSelectHolder .realArrow{
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 50%;
+	margin-top: -10px;
+	background-color: blue;
+	right: 20px;
 }

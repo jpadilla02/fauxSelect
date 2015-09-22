@@ -1,21 +1,10 @@
 jQuery(document).ready(function($){
 
-	/*************************
-	
-	 STYLE DIRECTORY
-	
-		1. =Title
-	
-	*************************/
-	
-	
-	//=====================================================//
-	// =Title
-	//=====================================================//
-	
+	$('select').fauxSelect({
 
-	// tests for IE and appends overlayFix in cases for multiplied background
-	// if( /*@cc_on!@*/false || !!document.documentMode ){
-	// 	$('.sample-element').append('<div class="overlayFix"/>');
-	// }
+	});
+	$('form').on('submit', function(e){
+		e.preventDefault();
+		console.log($(this).serialize());
+	});
 });
