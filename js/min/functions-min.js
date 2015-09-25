@@ -1,1 +1,1 @@
-jQuery(document).ready(function($){$("select").fauxSelect({placeHolder:"label",transitionDuration:.35})});
+jQuery(document).ready(function($){$("select").fauxSelect({bottomSpacer:!0,transitionDuration:.35})});

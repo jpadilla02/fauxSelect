@@ -3,3 +3,4 @@ config.codekit
 index.php
 header.php
 footer.php
+_config.scss

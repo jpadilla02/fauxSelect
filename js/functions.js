@@ -1,11 +1,8 @@
 jQuery(document).ready(function($){
 
 	$('select').fauxSelect({
-		placeHolder: 'label',
+		bottomSpacer: true,
 		transitionDuration: 0.35
 	});
-	// $('form').on('submit', function(e){
-	// 	e.preventDefault();
-	// 	console.log($(this).serialize());
-	// });
+
 });

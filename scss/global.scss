@@ -1,4 +1,4 @@
-@import "test";
+@import "config-sample";
 
 /*************************************
 
@@ -51,14 +51,6 @@
 	}
 	@include prefix(transition, $final);
 }
-
-/**        =Config         **/
-$config: (
-	paddingY: 10,
-	paddingX: 10,
-	opFontSize: 14,
-	opLineHeight: 18
-);
 
 /**        =FauxSelect         **/
 $fauxHeight: map-get($config, paddingY) * 2 + map-get($config, opLineHeight) + px;

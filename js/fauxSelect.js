@@ -17,6 +17,13 @@
                     // fauxElement
                     this.s.wrap('<div class="fauxEl"/>');
                     this.fauxEl = this.s.parent();
+                    this.fauxEl.css({
+                        '-webkit-transition-duration': opts.transitionDuration + 's',
+                        '-moz-transition-duration': opts.transitionDuration + 's',
+                        '-ms-transition-duration': opts.transitionDuration + 's',
+                        '-o-transition-duration': opts.transitionDuration + 's',
+                        'transition-duration': opts.transitionDuration + 's'
+                    });
                     // fauxSelect
                     this.fauxEl.append('<ul class="fauxSelect"/>');
                     this.fauxSelect = this.fauxEl.find('.fauxSelect');
@@ -31,15 +38,13 @@
                     });
                     $.each(this.fOps, function(index){
                         this.css('z-index', fauxOb.numOps - index);
-                        if ( opts.transitionDuration !== 0 ) {
-							this.css({
-			                    '-webkit-transition-duration': opts.transitionDuration + 's',
-			                    '-moz-transition-duration': opts.transitionDuration + 's',
-			                    '-ms-transition-duration': opts.transitionDuration + 's',
-			                    '-o-transition-duration': opts.transitionDuration + 's',
-			                    'transition-duration': opts.transitionDuration + 's'
-			                });
-						}
+						this.css({
+		                    '-webkit-transition-duration': opts.transitionDuration + 's',
+		                    '-moz-transition-duration': opts.transitionDuration + 's',
+		                    '-ms-transition-duration': opts.transitionDuration + 's',
+		                    '-o-transition-duration': opts.transitionDuration + 's',
+		                    'transition-duration': opts.transitionDuration + 's'
+		                });
                     });
                     // fauxDropper
                     this.fauxEl.prepend('<div class="fauxDropper"/>');
@@ -136,6 +141,13 @@
                     }
                     if ( opts.bottomSpacer ) {
                         this.fauxEl.removeAttr('style');
+                        this.fauxEl.css({
+                            '-webkit-transition-duration': opts.transitionDuration + 's',
+                            '-moz-transition-duration': opts.transitionDuration + 's',
+                            '-ms-transition-duration': opts.transitionDuration + 's',
+                            '-o-transition-duration': opts.transitionDuration + 's',
+                            'transition-duration': opts.transitionDuration + 's'
+                        });
                     }
                 },
 
