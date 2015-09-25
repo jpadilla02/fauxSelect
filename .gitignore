@@ -1,2 +1,5 @@
 config.codekit
 .DS_Store
+index.php
+header.php
+footer.php

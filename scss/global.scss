@@ -1,98 +1,175 @@
-.fauxSelectHolder{
-	position: relative;
+@import "test";
 
-	select{
-		position: absolute;
-		z-index: -1;
-		opacity: 0;
-		filter: alpha(opacity=0);
-		left: 999999px;
+/*************************************
+
+    Table of Contents
+
+	=Utility
+	=Config
+	=FauxSelect
+
+*************************************/
+
+/**        =Utility         **/
+%abscover{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+}
+@mixin prefix($property, $value){
+    @each $prefix in -webkit-, -ms-, -o-, -moz-, '' {
+        #{$prefix}#{$property}: $value;
+    }
+}
+@mixin transformer($arguments){
+	@include prefix(transform, $arguments);
+}
+@mixin ease($properties: all, $durations: 0.35s, $easings: ease-in-out){
+	$final: ();
+
+	@if length($properties) > 1{
+		@each $property in $properties{
+			$index: index($properties, $property);
+			@if length($durations) == length($properties) and length($easings) == length($properties){
+				$final: append($final, $property nth($durations, $index) nth($easings, $index), comma);
+			}
+			@else if length($durations) == length($properties) and length($easings) == 1{
+				$final: append($final, $property nth($durations, $index) nth($easings, 1), comma)
+			}
+			@else if length($easings) == length($properties) and length($durations) == 1{
+				$final: append($final, $property nth($durations, 1) nth($easings, $index), comma);
+			}
+			@else if length($easings) == 1 and length($durations) == 1{
+				$final: append($final, $property nth($durations, 1) nth($easings, 1), comma);
+			}
+		}
 	}
+	@else{
+		$final: nth($properties, 1) nth($durations, 1) nth($easings, 1);
+	}
+	@include prefix(transition, $final);
 }
 
-.fauxSelect{
-	position: absolute;
-	list-style: none;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-}
+/**        =Config         **/
+$config: (
+	paddingY: 10,
+	paddingX: 10,
+	opFontSize: 14,
+	opLineHeight: 18
+);
 
-.fauxOption{
-	position: absolute;
-	top: 0;
-	// this is to keep longer "options" from spilling over the container
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
-	// include easing properties for top value
-	-webkit-transition-property: top ease-in-out;
-	-moz-transition-property: top ease-in-out;
-	-o-transition-property: top ease-in-out;
-	transition-property: top ease-in-out;
-	// set/change delay and duration in optional parameters
-}
-
-.fauxSelectHolder.open .fauxOption{
-	text-overflow: inherit;
-	overflow: visible;
-	white-space: normal;
-}
-
-// testing/development purposes only
-.fauxSelectHolder{
-	width: 200px;
-	height: 20px;
-	z-index: 20;
+/**        =FauxSelect         **/
+$fauxHeight: map-get($config, paddingY) * 2 + map-get($config, opLineHeight) + px;
+.fauxEl{
+	position: relative;
+	height: $fauxHeight;
 	cursor: pointer;
-}
+	z-index: 5;
+	@include ease(z-index margin-bottom);
+	select{
+		display: none;
+	}
+	.fauxDropper, .fauxHead{
+		@extend %abscover;
+	}
+	.fauxDropper{
+		background: transparent;
+	}
+	.fauxHead{
+		line-height: $fauxHeight;
+		padding: 0 #{map-get($config, paddingX) + px};
+		width: calc(100% - #{map-get($config, paddingX) * 2 + px});
+	}
+	.fauxHolder{
+		height: $fauxHeight;
+		overflow: visible;
+		position: relative;
+		@include ease(height);
+		.fauxSelect{
+			height: $fauxHeight;
+			position: relative;
+			margin: 0;
+			padding: 0;
+			.fauxOption{
+				position: absolute;
+				top: 0;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+				line-height: map-get($config, opLineHeight) + px;
+				font-size: map-get($config, opFontSize) + px;
+				padding: #{map-get($config, paddingY) + px} #{map-get($config, paddingX) + px};
+				width: calc(100% - #{map-get($config, paddingX) * 2 + px});
+				@include ease(top);
+			}
+		}
+	}
 
-.fauxSelectHolder, .fauxHead, .fauxOption{
-	padding: 10px 10px;
-}
+	// z-indexes
+	.fauxDropper{
+		z-index: 4;
+	}
+	.fauxArrow{
+		z-index: 3;
+	}
+	.fauxHead{
+		z-index: 2;
+	}
+	.fauxHolder{
+		z-index: 1;
+	}
 
-.fauxHead{
-	background-color: #f1f1f2;
-	position: absolute;
-	height: calc(100% - 20px);
-	width: calc(100% - 20px);
-	top: 0;
-	left: 0;
-}
+	&.selected{
 
-.fauxDropper{
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	top: 0;
-	left: 0;
-	background: transparent;
-}
+		// z-indexes
+		.fauxDropper{
+			z-index: 4;
+		}
+		.fauxArrow{
+			z-index: 3;
+		}
+		.fauxHead{
+			z-index: 1;
+		}
+		.fauxHolder{
+			z-index: 2;
+		}
+	}
 
-.fauxSelect{
-	padding: 0;
-	margin: 0;
-}
+	&.open{
+		z-index: 10;
+		.fauxHolder{
+			.fauxSelect{
+				.fauxOption{
+					text-overflow: inherit;
+					overflow: visible;
+					white-space: normal;
+				}
+			}
+		}
 
-.fauxOption{
-	width: calc(100% - 20px);
-	min-height: calc(100% - 20px);
-	margin: 0;
-
-	@for $i from 1 through 10{
-		&:nth-child(#{$i}){
-			background-color: darken(red, 5 * $i);
+		// z-indexes
+		.fauxDropper{
+			z-index: 0;
+		}
+		.fauxArrow{
+			z-index: 3;
+		}
+		.fauxHead{
+			z-index: 2;
+		}
+		.fauxHolder{
+			z-index: 1;
 		}
 	}
 }
 
-.fauxSelectHolder .realArrow{
-	width: 20px;
-	height: 20px;
+.fauxEl .fauxArrow{
 	position: absolute;
-	top: 50%;
-	margin-top: -10px;
+	height: 100%;
+	right: 0;
+	width: $fauxHeight;
 	background-color: blue;
-	right: 20px;
 }
