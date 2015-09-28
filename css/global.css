@@ -16,9 +16,12 @@
   width: 100%; }
 
 /**        =FauxSelect         **/
+.fauxOption {
+  font-size: 1em; }
+
 .fauxEl {
   position: relative;
-  height: 38px;
+  height: 2.375em;
   cursor: pointer;
   z-index: 5;
   -webkit-transition: z-index 0.35s ease-in-out, margin-bottom 0.35s ease-in-out;
@@ -31,11 +34,11 @@
   .fauxEl .fauxDropper {
     background: transparent; }
   .fauxEl .fauxHead {
-    line-height: 38px;
+    line-height: 2.375em;
     padding: 0 10px;
     width: calc(100% - 20px); }
   .fauxEl .fauxHolder {
-    height: 38px;
+    height: 2.375em;
     overflow: visible;
     position: relative;
     -webkit-transition: height 0.35s ease-in-out;
@@ -44,7 +47,7 @@
     -moz-transition: height 0.35s ease-in-out;
     transition: height 0.35s ease-in-out; }
     .fauxEl .fauxHolder .fauxSelect {
-      height: 38px;
+      height: 2.375em;
       position: relative;
       margin: 0;
       padding: 0; }
@@ -54,9 +57,9 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-        line-height: 18px;
-        font-size: 14px;
-        padding: 10px 10px;
+        line-height: 1.125em;
+        font-size: 1em;
+        padding: 0.625em 10px;
         width: calc(100% - 20px);
         -webkit-transition: top 0.35s ease-in-out;
         -ms-transition: top 0.35s ease-in-out;
@@ -98,5 +101,4 @@
   position: absolute;
   height: 100%;
   right: 0;
-  width: 38px;
-  background-color: blue; }
+  width: 2.375em; }

@@ -1,14 +1,18 @@
+@function em($px, $base:16) {
+	@return ($px / $base) * 1em;
+}
+// paddingY, opFontSize and opLineHeight have to be use the same unit ('px' or 'em' most likely)
 $fauxConfig: (
-	paddingY: 10,
-	paddingX: 10,
-	opFontSize: 14,
-	opLineHeight: 18
+	paddingY: em(10),
+	paddingX: 10px,
+	opFontSize: em(16),
+	opLineHeight: em(18)
 );
 
 $fauxFonts: (
 	'.fauxOption': (
 		font:null,
-        font-size:null,
+        font-size: map-get($fauxConfig, opFontSize),
         color:null,
         text-transform:null,
 		background-color:null
@@ -20,4 +24,10 @@ $fauxFonts: (
         text-transform:null,
 		background-color:null
 	)
+);
+
+$fauxArrow: (
+	background-color:null,
+	width:null,
+	background-image:null
 );

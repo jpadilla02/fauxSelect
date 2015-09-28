@@ -71,7 +71,7 @@ $faux-font-keys: map_keys($fauxFonts);
 	}
 }
 
-$fauxHeight: map-get($fauxConfig, paddingY) * 2 + map-get($fauxConfig, opLineHeight) + px;
+$fauxHeight: map-get($fauxConfig, paddingY) * 2 + map-get($fauxConfig, opLineHeight);
 .fauxEl{
 	position: relative;
 	height: $fauxHeight;
@@ -89,8 +89,8 @@ $fauxHeight: map-get($fauxConfig, paddingY) * 2 + map-get($fauxConfig, opLineHei
 	}
 	.fauxHead{
 		line-height: $fauxHeight;
-		padding: 0 #{map-get($fauxConfig, paddingX) + px};
-		width: calc(100% - #{map-get($fauxConfig, paddingX) * 2 + px});
+		padding: 0 #{map-get($fauxConfig, paddingX)};
+		width: calc(100% - #{map-get($fauxConfig, paddingX) * 2});
 	}
 	.fauxHolder{
 		height: $fauxHeight;
@@ -108,10 +108,10 @@ $fauxHeight: map-get($fauxConfig, paddingY) * 2 + map-get($fauxConfig, opLineHei
 				text-overflow: ellipsis;
 				overflow: hidden;
 				white-space: nowrap;
-				line-height: map-get($fauxConfig, opLineHeight) + px;
-				font-size: map-get($fauxConfig, opFontSize) + px;
-				padding: #{map-get($fauxConfig, paddingY) + px} #{map-get($fauxConfig, paddingX) + px};
-				width: calc(100% - #{map-get($fauxConfig, paddingX) * 2 + px});
+				line-height: map-get($fauxConfig, opLineHeight);
+				font-size: map-get($fauxConfig, opFontSize);
+				padding: #{map-get($fauxConfig, paddingY)} #{map-get($fauxConfig, paddingX)};
+				width: calc(100% - #{map-get($fauxConfig, paddingX) * 2});
 				@include ease(top);
 			}
 		}
@@ -180,6 +180,12 @@ $fauxHeight: map-get($fauxConfig, paddingY) * 2 + map-get($fauxConfig, opLineHei
 	position: absolute;
 	height: 100%;
 	right: 0;
-	width: $fauxHeight;
-	background-color: blue;
+	background-color: map-get($fauxArrow, background-color);
+	background-image: map-get($fauxArrow, background-image);
+	@if map-get($fauxArrow, width) == null{
+		width: $fauxHeight;
+	}
+	@else{
+		width: map-get($fauxArrow, width);
+	}
 }

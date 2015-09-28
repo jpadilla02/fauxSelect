@@ -1,1 +1,1 @@
-jQuery(document).ready(function($){$("select").fauxSelect({transitionDuration:.35})});
+jQuery(document).ready(function($){$("select").fauxSelect({transitionDuration:.35,arrow:!0})});
