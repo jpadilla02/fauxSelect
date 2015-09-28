@@ -1,18 +1,23 @@
-$config: (
+$fauxConfig: (
 	paddingY: 10,
 	paddingX: 10,
 	opFontSize: 14,
 	opLineHeight: 18
 );
 
-.fauxEl{
-    margin-bottom: 20px;
-}
-
-.fauxHead{
-	background-color: #f1f1f2;
-}
-
-.fauxOption{
-    background-color: #f1f1f2;
-}
+$fauxFonts: (
+	'.fauxOption': (
+		font:null,
+        font-size:null,
+        color:null,
+        text-transform:null,
+		background-color:null
+	),
+	'.fauxHead': (
+		font:null,
+        font-size:null,
+        color:null,
+        text-transform:null,
+		background-color:null
+	)
+);
