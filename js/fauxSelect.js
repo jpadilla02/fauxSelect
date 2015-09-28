@@ -66,7 +66,7 @@
 							$('label[for="'+ selectID +'"]').hide();
                         }
                         else if ( opts.placeHolder === 'placeholder' ) {
-                            placeholder = this.select.attr('placeholder');
+                            placeholder = this.s.attr('placeholder');
                         }
                         else{
                             console.log('Please select either placeHolder  to either "label" or "placeholder"');
